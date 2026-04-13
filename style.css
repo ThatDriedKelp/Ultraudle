@@ -21,7 +21,6 @@ h1 {
   margin-top: 120px;
 }
 
-/* ---------------- BUTTONS ---------------- */
 
 button {
   display: block;
@@ -60,7 +59,7 @@ button::after {
   position: absolute;
   inset: 4px;
 
-  /* CHANGED: darkest possible black */
+
   background: #000000;
 
   clip-path: polygon(
@@ -84,8 +83,6 @@ button:active {
   transform: translate(3px, 3px);
 }
 
-/* ---------------- INPUT ---------------- */
-
 input {
   font-family: "VCR", monospace;
   font-size: 28px;
@@ -104,10 +101,8 @@ input {
   outline: none;
 }
 
-/* ---------------- SUGGESTIONS ---------------- */
-
 #suggestions {
-  width: 520px; /* CHANGED: wider */
+  width: 520px;
   margin: -10px auto 20px auto;
   text-align: left;
 }
@@ -121,7 +116,7 @@ input {
 .suggestion-item {
   position: relative;
   padding: 16px 10px;
-  padding-left: 28px;   /* pushes text right */
+  padding-left: 28px;   
   margin: 6px 0;
   cursor: pointer;
   font-size: 18px;
@@ -162,11 +157,11 @@ input {
   color: #d0d0d0;
 }
 
-/* thinner outline = reduce inset thickness */
+
 .suggestion-item::after {
   content: "";
   position: absolute;
-  inset: 2px;        /* thinner border than before */
+  inset: 2px;       
   background: #0f0f0f;
 
   clip-path: polygon(
@@ -181,6 +176,18 @@ input {
   );
 
   z-index: -1;
+}
+
+.credits-box {
+  text-align: left;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.credits-box h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 16px;
 }
 
 .suggestion-item::before {
@@ -244,13 +251,11 @@ button:hover, .suggestion-item:hover {
   background: #1c1c1c;
 }
 
-/* ---------------- HISTORY ---------------- */
-
 #history div {
   width: 600px;
   margin: 6px auto;
   padding: 6px 0;
-  font-size: 24px; /* increased */
+  font-size: 24px;
   text-align: left;
 
   display: flex;
@@ -293,14 +298,13 @@ button:hover, .suggestion-item:hover {
   display: none;
 }
 
-/* the | */
+
 #history div::before {
   content: "|";
-  color: #b5b5b5;   /* light grey */
+  color: #b5b5b5; 
   font-weight: bold;
 }
 
-/* text colors */
 #history div.correct {
   color: #00ff66;
 }
@@ -309,7 +313,7 @@ button:hover, .suggestion-item:hover {
   color: #ff2b2b;
 }
 
-/* ---------------- VISUALIZER ---------------- */
+
 
 .frame {
   width: 600px;
@@ -323,17 +327,15 @@ button:hover, .suggestion-item:hover {
   height: 120px;
   background: #0f0f0f;
 
-  border: 2px solid white;   /* outline */
+  border: 2px solid white;   
   box-sizing: border-box;
 }
 
-/* ---------------- RESULT ---------------- */
 
 #result {
   font-size: 28px;
 }
 
-/* flash overlay */
 #flash {
   position: fixed;
   inset: 0;
@@ -357,7 +359,6 @@ button:hover, .suggestion-item:hover {
   to { opacity: 0; }
 }
 
-/* screenshake */
 .shake {
   animation: shake 0.25s;
 }
