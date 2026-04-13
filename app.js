@@ -1,7 +1,5 @@
 const GAME_MODE = window.GAME_MODE || "standard";
 
-// ================= AUDIO =================
-
 let audio = new Audio();
 audio.preload = "auto";
 
@@ -14,18 +12,15 @@ let attempt = 0;
 let won = false;
 let streak = 0;
 
-let gameOver = false; // HERE
+let gameOver = false; 
 
 
-
-// unlock audio on first interaction (CRITICAL FIX)
 document.addEventListener("click", async () => {
   if (audioCtx.state === "suspended") {
     await audioCtx.resume();
   }
 }, { once: true });
 
-// ================= AUDIO CONTEXT =================
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioCtx();
@@ -54,7 +49,6 @@ async function ensureAudio() {
   initAudio();
 }
 
-// ================= SONG =================
 
 function pickSong() {
   const seed =
@@ -69,7 +63,6 @@ function pickSong() {
   audio.load();
 }
 
-// ================= UI =================
 
 function updatePlays() {
   const el = document.getElementById("playsLeft");
@@ -87,8 +80,6 @@ function updatePlays() {
     left === 1 ? "orange" :
     left === 2 ? "yellow" : "green";
 }
-
-// ================= AUTOFILL =================
 
 function autofill(v) {
   const box = document.getElementById("suggestions");
@@ -125,8 +116,6 @@ document.getElementById("guess").addEventListener("input", e =>
   autofill(e.target.value)
 );
 
-// ================= FLASH =================
-
 function flash(type) {
   const f = document.getElementById("flash");
   if (!f) return;
@@ -150,7 +139,6 @@ function flash(type) {
   }, 200);
 }
 
-// ================= HISTORY =================
 
 function addHistory(text, type) {
   const d = document.createElement("div");
@@ -159,7 +147,6 @@ function addHistory(text, type) {
   document.getElementById("history").appendChild(d);
 }
 
-// ================= PLAY =================
 
 const revealTimes = [0.5, 1, 2, 3, 4, 5];
 
@@ -195,8 +182,6 @@ async function playClip() {
   setTimeout(() => audio.pause(), len * 1000);
 }
 
-// ================= GUESS =================
-
 function checkGuess() {
   if (gameOver) return;
 
@@ -213,7 +198,6 @@ function checkGuess() {
     return;
   }
 
-  // prevent reuse
   if (used.has(match.norm)) {
     result.textContent = "USED";
     flash("red");
@@ -224,7 +208,6 @@ function checkGuess() {
   used.add(match.norm);
   attempt++;
 
-  // WRONG
   if (g !== song.norm) {
     addHistory(match.title, "wrong");
     flash("red");
@@ -234,8 +217,6 @@ function checkGuess() {
     input.value = "";
     return;
   }
-
-  // ================= CORRECT =================
 
   flash("green");
   gameOver = true;
@@ -278,12 +259,10 @@ function showCompletedScreen() {
     </div>
   `;
 
-  // clone history
   const hist = document.getElementById("history");
   document.getElementById("historyClone").innerHTML = hist.innerHTML;
 }
 
-// ================= NEXT =================
 
 function nextRound() {
   song = null;
@@ -304,7 +283,6 @@ function nextRound() {
   updatePlays();
 }
 
-// ================= VISUALIZER =================
 
 function draw() {
   requestAnimationFrame(draw);
@@ -327,7 +305,7 @@ function draw() {
 function returnHome() {
   window.location.href = "index.html";
 }
-// ================= INIT =================
+
 
 window.onload = () => {
   pickSong();
