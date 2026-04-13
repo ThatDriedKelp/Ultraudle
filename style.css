@@ -194,6 +194,16 @@ input {
   text-align: left;
 }
 
+body {
+  background: #000;
+  color: #ccc;
+  font-family: "VCR", monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "VCR", monospace;
+}
+
 .credits-box {
   background: #000;
   color: #ccc;
@@ -201,7 +211,6 @@ input {
   padding: 20px;
   margin: 40px auto;
   width: 600px;
-  text-align: left;
 }
 
 #history div {
