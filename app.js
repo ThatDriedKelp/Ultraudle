@@ -14,6 +14,8 @@ let streak = 0;
 
 let gameOver = false; 
 
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioCtx();
 
 document.addEventListener("click", async () => {
   if (audioCtx.state === "suspended") {
@@ -21,9 +23,6 @@ document.addEventListener("click", async () => {
   }
 }, { once: true });
 
-
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioCtx();
 
 const analyser = audioCtx.createAnalyser();
 analyser.fftSize = 256;
@@ -303,7 +302,7 @@ function draw() {
 }
 
 function returnHome() {
-  window.location.href = "index.html";
+  window.location.href = "./index.html";
 }
 
 
