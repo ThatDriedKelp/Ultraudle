@@ -101,7 +101,6 @@ function checkGuess() {
     return;
   }
 
-  // prevent reuse
   if (used.has(match.norm)) {
     result.textContent = "USED";
     flash("red");
@@ -112,7 +111,6 @@ function checkGuess() {
   used.add(match.norm);
   attempt++;
 
-  // WRONG
   if (g !== song.norm) {
     addHistory(match.title, "wrong");
     flash("red");
@@ -123,7 +121,6 @@ function checkGuess() {
     return;
   }
 
-  // ================= CORRECT =================
 
   flash("green");
   gameOver = true;
