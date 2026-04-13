@@ -1,0 +1,371 @@
+@font-face {
+  font-family: "VCR";
+  src: url("fonts/VCR_OSD_MONO_1.001.ttf");
+}
+
+body {
+  font-family: "VCR", monospace;
+  background: #0b0b0b;
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  font-size: 72px;
+  margin-top: 100px;
+}
+
+.menu {
+  margin-top: 120px;
+}
+
+/* ---------------- BUTTONS ---------------- */
+
+button {
+  display: block;
+  margin: 22px auto;
+  width: 600px;
+  padding: 28px 34px;
+  font-size: 32px;
+  font-family: "VCR", monospace;
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+  z-index: -2;
+}
+
+button::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+
+  /* CHANGED: darkest possible black */
+  background: #000000;
+
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+  z-index: -1;
+}
+
+button:hover::after {
+  background: #0a0a0a;
+}
+
+button:active {
+  transform: translate(3px, 3px);
+}
+
+/* ---------------- INPUT ---------------- */
+
+input {
+  font-family: "VCR", monospace;
+  font-size: 28px;
+
+  width: 600px;
+  padding: 26px 30px;
+  margin: 22px auto;
+  display: block;
+
+  background: #0f0f0f;
+  color: white;
+
+  border: 2px solid white;
+  box-sizing: border-box;
+
+  outline: none;
+}
+
+/* ---------------- SUGGESTIONS ---------------- */
+
+#suggestions {
+  width: 520px; /* CHANGED: wider */
+  margin: -10px auto 20px auto;
+  text-align: left;
+}
+
+.plays-ui {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.suggestion-item {
+  position: relative;
+  padding: 16px 10px;
+  padding-left: 28px;   /* pushes text right */
+  margin: 6px 0;
+  cursor: pointer;
+  font-size: 18px;
+  color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.menu a button {
+  font-size: 22px;
+  padding: 14px 22px;
+}
+
+#underConstruction {
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+
+  font-family: "VCR", monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  z-index: 99999;
+}
+
+.tutorial-box {
+  width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid white;
+  background: #0f0f0f;
+  color: #d0d0d0;
+}
+
+/* thinner outline = reduce inset thickness */
+.suggestion-item::after {
+  content: "";
+  position: absolute;
+  inset: 2px;        /* thinner border than before */
+  background: #0f0f0f;
+
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+
+  z-index: -1;
+}
+
+.suggestion-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+
+  z-index: -2;
+}
+
+button, .suggestion-item {
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+button:hover, .suggestion-item:hover {
+  filter: brightness(1.2);
+  animation: slowWiggle 1.2s ease-in-out infinite;
+}
+
+@keyframes slowWiggle {
+  0%   { transform: rotate(0deg) scale(1.02); }
+  25%  { transform: rotate(0.6deg) scale(1.02); }
+  50%  { transform: rotate(-0.6deg) scale(1.02); }
+  75%  { transform: rotate(0.6deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1.02); }
+}
+
+.suggestion-item::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: #0f0f0f;
+
+  clip-path: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+
+  z-index: -1;
+}
+
+.suggestion-item:hover::after {
+  background: #1c1c1c;
+}
+
+/* ---------------- HISTORY ---------------- */
+
+#history div {
+  width: 600px;
+  margin: 6px auto;
+  padding: 6px 0;
+  font-size: 24px; /* increased */
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#history div {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideFadeIn 0.3s ease forwards;
+}
+
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #000;
+  border: 2px solid #fff;
+  padding: 20px;
+  width: 400px;
+  color: #fff;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* the | */
+#history div::before {
+  content: "|";
+  color: #b5b5b5;   /* light grey */
+  font-weight: bold;
+}
+
+/* text colors */
+#history div.correct {
+  color: #00ff66;
+}
+
+#history div.wrong {
+  color: #ff2b2b;
+}
+
+/* ---------------- VISUALIZER ---------------- */
+
+.frame {
+  width: 600px;
+  height: 120px;
+  margin: 30px auto;
+  position: relative;
+}
+
+#waveform {
+  width: 600px;
+  height: 120px;
+  background: #0f0f0f;
+
+  border: 2px solid white;   /* outline */
+  box-sizing: border-box;
+}
+
+/* ---------------- RESULT ---------------- */
+
+#result {
+  font-size: 28px;
+}
+
+/* flash overlay */
+#flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 999;
+}
+
+.flash-red {
+  background: rgba(255, 0, 0, 0.2);
+  animation: flashFade 0.25s ease;
+}
+
+.flash-green {
+  background: rgba(0, 255, 100, 0.2);
+  animation: flashFade 0.25s ease;
+}
+
+@keyframes flashFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* screenshake */
+.shake {
+  animation: shake 0.25s;
+}
+
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(6px, -4px); }
+  50% { transform: translate(-6px, 4px); }
+  75% { transform: translate(4px, 2px); }
+  100% { transform: translate(0,0); }
+}

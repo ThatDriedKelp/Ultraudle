@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ULTRAUDLE - Standard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- GAME SCREEN -->
+<div id="gameUI">
+
+  <h1>ULTRAUDLE // STANDARD</h1>
+
+  <div class="frame">
+    <canvas id="waveform"></canvas>
+  </div>
+
+  <!-- plays UI ABOVE button (your requirement) -->
+  <div id="playsLeft" class="plays-ui"></div>
+
+  <button id="playBtn">Play</button>
+
+  <input id="guess" placeholder="Guess">
+  <div id="suggestions"></div>
+
+  <div id="history"></div>
+
+  <p id="result"></p>
+
+  <button onclick="checkGuess()">Guess</button>
+
+</div>
+
+<!-- RESULT SCREEN -->
+
+<div id="flash"></div>
+
+<div id="resultUI" style="display:none;">
+  <h1 id="endTitle"></h1>
+  <p id="streakText"></p>
+
+  <button onclick="nextRound()">Next</button>
+</div>
+
+<!-- DATA FIRST -->
+<script src="shared.js"></script>
+
+<!-- GAME LOGIC -->
+<script src="app.js"></script>
+
+</body>
+</html>

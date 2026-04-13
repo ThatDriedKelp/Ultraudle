@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<div id="underConstruction">
+  UNDER CONSTRUCTION
+</div>
+
+<head>
+  <title>Endless</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="gameUI">
+
+  <h1>ULTRAUDLE // ENDLESS</h1>
+
+  <div class="frame">
+    <canvas id="waveform"></canvas>
+  </div>
+
+  <div id="playsLeft" class="plays-ui"></div>
+
+  <button id="playBtn">Play</button>
+
+  <input id="guess" placeholder="Guess">
+  <div id="suggestions"></div>
+
+  <div id="history"></div>
+
+  <p id="result"></p>
+
+  <button onclick="checkGuess()">Guess</button>
+
+</div>
+
+<div id="flash"></div>
+
+<div id="resultUI" style="display:none;">
+  <h1 id="endTitle"></h1>
+  <p id="streakText"></p>
+
+  <button onclick="nextRound()">Next</button>
+</div>
+<button onclick="returnHome()">← RETURN TO HOME</button>
+<script src="shared.js"></script>
+<script src="appendless.js"></script>
+
+</body>
+</html>
