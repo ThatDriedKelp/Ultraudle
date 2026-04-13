@@ -10,47 +10,37 @@ let playCount = 0;
 let used = new Set();
 let attempt = 0;
 let won = false;
-
 let gameOver = false;
 
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioCtx();
-
+let audioCtx;
 let analyser;
-let buffer;
-let data;
+let dataArray;
+let canvas;
+let ctx;
 
-const canvas = document.getElementById("waveform");
-const ctx = canvas ? canvas.getContext("2d") : null;
+let sourceNode;
 
-let sourceDone = false;
+const revealTimes = [0.5, 1, 2, 3, 4, 5];
 
 function initAudio() {
-  if (sourceDone || !audioCtx) return;
+  if (audioCtx) return;
+
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   analyser = audioCtx.createAnalyser();
   analyser.fftSize = 256;
 
-  buffer = analyser.frequencyBinCount;
-  data = new Uint8Array(buffer);
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-  const src = audioCtx.createMediaElementSource(audio);
-  src.connect(analyser);
+  sourceNode = audioCtx.createMediaElementSource(audio);
+  sourceNode.connect(analyser);
   analyser.connect(audioCtx.destination);
-
-  sourceDone = true;
 }
 
 async function ensureAudio() {
-  if (audioCtx.state === "suspended") await audioCtx.resume();
   initAudio();
+  if (audioCtx.state === "suspended") await audioCtx.resume();
 }
-
-document.addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") {
-    await audioCtx.resume();
-  }
-}, { once: true });
 
 function pickSong() {
   const seed =
@@ -71,6 +61,7 @@ function updatePlays() {
 
   if (GAME_MODE === "endless") {
     el.textContent = "ENDLESS MODE";
+    el.style.color = "white";
     return;
   }
 
@@ -83,13 +74,18 @@ function updatePlays() {
     left === 2 ? "yellow" : "green";
 }
 
+function normalizeLocal(v) {
+  if (typeof normalize === "function") return normalize(v);
+  return v.toLowerCase().trim();
+}
+
 function autofill(v) {
   const box = document.getElementById("suggestions");
   if (!box) return;
 
   box.innerHTML = "";
 
-  v = normalize(v);
+  v = normalizeLocal(v);
   if (!v) return;
 
   const seen = new Set();
@@ -117,11 +113,6 @@ function autofill(v) {
     });
 }
 
-const guessInput = document.getElementById("guess");
-if (guessInput) {
-  guessInput.addEventListener("input", e => autofill(e.target.value));
-}
-
 function flash(type) {
   const f = document.getElementById("flash");
   if (!f) return;
@@ -146,16 +137,13 @@ function flash(type) {
 }
 
 function addHistory(text, type) {
-  const box = document.getElementById("history");
-  if (!box) return;
-
   const d = document.createElement("div");
   d.className = type;
   d.textContent = text;
-  box.appendChild(d);
-}
 
-const revealTimes = [0.5, 1, 2, 3, 4, 5];
+  const h = document.getElementById("history");
+  if (h) h.appendChild(d);
+}
 
 async function playClip() {
   await ensureAudio();
@@ -175,16 +163,12 @@ async function playClip() {
   audio.pause();
   audio.currentTime = clipStart;
 
-  await new Promise(r => requestAnimationFrame(r));
+  await audio.play();
 
-  try {
-    await audio.play();
-  } catch {}
+  setTimeout(() => audio.pause(), len * 1000);
 
   playCount++;
   updatePlays();
-
-  setTimeout(() => audio.pause(), len * 1000);
 }
 
 function checkGuess() {
@@ -195,7 +179,7 @@ function checkGuess() {
 
   if (!input || !result) return;
 
-  const g = normalize(input.value);
+  const g = normalizeLocal(input.value);
   const match = songs.find(s => s.norm === g);
 
   if (!match) {
@@ -227,10 +211,12 @@ function checkGuess() {
 
   flash("green");
   gameOver = true;
+  won = true;
+  result.textContent = "CORRECT";
 
   setTimeout(() => {
     showCompletedScreen();
-  }, 200);
+  }, 300);
 }
 
 function showCompletedScreen() {
@@ -250,7 +236,7 @@ function showCompletedScreen() {
       <p>Attempts: ${attempt}</p>
       <div id="historyClone"></div>
       <button onclick="nextRound()">Next Puzzle</button>
-      <button onclick="returnHome()">RETURN</button>
+      <button onclick="returnHome()">RETURN HOME</button>
     </div>
   `;
 
@@ -268,20 +254,20 @@ function nextRound() {
 
   pickSong();
 
-  const hist = document.getElementById("history");
-  if (hist) hist.innerHTML = "";
+  const h = document.getElementById("history");
+  if (h) h.innerHTML = "";
 
-  const result = document.getElementById("result");
-  if (result) result.textContent = "";
+  const r = document.getElementById("result");
+  if (r) r.textContent = "";
 
-  const input = document.getElementById("guess");
-  if (input) input.value = "";
+  const i = document.getElementById("guess");
+  if (i) i.value = "";
 
-  const resultUI = document.getElementById("resultUI");
-  const gameUI = document.getElementById("gameUI");
+  const rui = document.getElementById("resultUI");
+  const gui = document.getElementById("gameUI");
 
-  if (resultUI) resultUI.style.display = "none";
-  if (gameUI) gameUI.style.display = "block";
+  if (rui) rui.style.display = "none";
+  if (gui) gui.style.display = "block";
 
   updatePlays();
 }
@@ -291,14 +277,14 @@ function draw() {
 
   if (!analyser || !ctx || !canvas) return;
 
-  analyser.getByteFrequencyData(data);
+  analyser.getByteFrequencyData(dataArray);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const step = canvas.width / buffer;
+  const step = canvas.width / dataArray.length;
 
-  for (let i = 0; i < buffer; i++) {
-    const v = data[i] / 255;
+  for (let i = 0; i < dataArray.length; i++) {
+    const v = dataArray[i] / 255;
     const h = v * canvas.height;
 
     ctx.fillStyle = "white";
@@ -311,10 +297,16 @@ function returnHome() {
 }
 
 window.onload = () => {
+  canvas = document.getElementById("waveform");
+  if (canvas) ctx = canvas.getContext("2d");
+
   pickSong();
   updatePlays();
   draw();
 
   const btn = document.getElementById("playBtn");
   if (btn) btn.onclick = playClip;
+
+  const input = document.getElementById("guess");
+  if (input) input.addEventListener("input", e => autofill(e.target.value));
 };
