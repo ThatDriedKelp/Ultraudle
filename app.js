@@ -10,36 +10,34 @@ let playCount = 0;
 let used = new Set();
 let attempt = 0;
 let won = false;
-let streak = 0;
 
-let gameOver = false; 
+let gameOver = false;
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioCtx();
 
-document.addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") {
-    await audioCtx.resume();
-  }
-}, { once: true });
-
-
-const analyser = audioCtx.createAnalyser();
-analyser.fftSize = 256;
-
-const buffer = analyser.frequencyBinCount;
-const data = new Uint8Array(buffer);
+let analyser;
+let buffer;
+let data;
 
 const canvas = document.getElementById("waveform");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
 let sourceDone = false;
 
 function initAudio() {
-  if (sourceDone) return;
+  if (sourceDone || !audioCtx) return;
+
+  analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 256;
+
+  buffer = analyser.frequencyBinCount;
+  data = new Uint8Array(buffer);
+
   const src = audioCtx.createMediaElementSource(audio);
   src.connect(analyser);
   analyser.connect(audioCtx.destination);
+
   sourceDone = true;
 }
 
@@ -48,6 +46,11 @@ async function ensureAudio() {
   initAudio();
 }
 
+document.addEventListener("click", async () => {
+  if (audioCtx.state === "suspended") {
+    await audioCtx.resume();
+  }
+}, { once: true });
 
 function pickSong() {
   const seed =
@@ -62,17 +65,17 @@ function pickSong() {
   audio.load();
 }
 
-
 function updatePlays() {
   const el = document.getElementById("playsLeft");
+  if (!el) return;
 
   if (GAME_MODE === "endless") {
     el.textContent = "ENDLESS MODE";
-    el.style.color = "white";
     return;
   }
 
   const left = 3 - playCount;
+
   el.textContent = `PLAYS LEFT: ${Math.max(0, left)}`;
   el.style.color =
     left <= 0 ? "red" :
@@ -82,6 +85,8 @@ function updatePlays() {
 
 function autofill(v) {
   const box = document.getElementById("suggestions");
+  if (!box) return;
+
   box.innerHTML = "";
 
   v = normalize(v);
@@ -103,7 +108,8 @@ function autofill(v) {
       d.textContent = s.title;
 
       d.onclick = () => {
-        document.getElementById("guess").value = s.title;
+        const input = document.getElementById("guess");
+        if (input) input.value = s.title;
         box.innerHTML = "";
       };
 
@@ -111,9 +117,10 @@ function autofill(v) {
     });
 }
 
-document.getElementById("guess").addEventListener("input", e =>
-  autofill(e.target.value)
-);
+const guessInput = document.getElementById("guess");
+if (guessInput) {
+  guessInput.addEventListener("input", e => autofill(e.target.value));
+}
 
 function flash(type) {
   const f = document.getElementById("flash");
@@ -138,14 +145,15 @@ function flash(type) {
   }, 200);
 }
 
-
 function addHistory(text, type) {
+  const box = document.getElementById("history");
+  if (!box) return;
+
   const d = document.createElement("div");
   d.className = type;
   d.textContent = text;
-  document.getElementById("history").appendChild(d);
+  box.appendChild(d);
 }
-
 
 const revealTimes = [0.5, 1, 2, 3, 4, 5];
 
@@ -171,9 +179,7 @@ async function playClip() {
 
   try {
     await audio.play();
-  } catch (e) {
-    console.log(e);
-  }
+  } catch {}
 
   playCount++;
   updatePlays();
@@ -186,6 +192,8 @@ function checkGuess() {
 
   const input = document.getElementById("guess");
   const result = document.getElementById("result");
+
+  if (!input || !result) return;
 
   const g = normalize(input.value);
   const match = songs.find(s => s.norm === g);
@@ -221,47 +229,34 @@ function checkGuess() {
   gameOver = true;
 
   setTimeout(() => {
-    if (GAME_MODE === "standard") {
-      showCompletedScreen();
-    } else {
-      showResultScreen();
-    }
+    showCompletedScreen();
   }, 200);
 }
 
 function showCompletedScreen() {
-  document.getElementById("gameUI").style.display = "none";
-
+  const gameUI = document.getElementById("gameUI");
   const resultUI = document.getElementById("resultUI");
+
+  if (gameUI) gameUI.style.display = "none";
+  if (!resultUI) return;
+
   resultUI.style.display = "block";
 
+  const hist = document.getElementById("history");
+
   resultUI.innerHTML = `
-    <div style="
-      background: rgba(0,255,0,0.15);
-      backdrop-filter: blur(6px);
-      padding: 20px;
-      text-align: center;
-      color: white;
-    ">
-
-      <h1 style="font-size: 48px;">COMPLETED</h1>
-
-      <p style="font-size: 22px;">
-        Attempts: ${attempt}
-      </p>
-
+    <div style="background: rgba(0,255,0,0.15); padding:20px; text-align:center;">
+      <h1>COMPLETED</h1>
+      <p>Attempts: ${attempt}</p>
       <div id="historyClone"></div>
-
       <button onclick="nextRound()">Next Puzzle</button>
-
-      <button onclick="returnHome()">← RETURN TO HOME</button>
+      <button onclick="returnHome()">RETURN</button>
     </div>
   `;
 
-  const hist = document.getElementById("history");
-  document.getElementById("historyClone").innerHTML = hist.innerHTML;
+  const clone = document.getElementById("historyClone");
+  if (clone && hist) clone.innerHTML = hist.innerHTML;
 }
-
 
 function nextRound() {
   song = null;
@@ -269,22 +264,32 @@ function nextRound() {
   used.clear();
   attempt = 0;
   won = false;
+  gameOver = false;
 
   pickSong();
 
-  document.getElementById("history").innerHTML = "";
-  document.getElementById("result").textContent = "";
-  document.getElementById("guess").value = "";
+  const hist = document.getElementById("history");
+  if (hist) hist.innerHTML = "";
 
-  document.getElementById("resultUI").style.display = "none";
-  document.getElementById("gameUI").style.display = "block";
+  const result = document.getElementById("result");
+  if (result) result.textContent = "";
+
+  const input = document.getElementById("guess");
+  if (input) input.value = "";
+
+  const resultUI = document.getElementById("resultUI");
+  const gameUI = document.getElementById("gameUI");
+
+  if (resultUI) resultUI.style.display = "none";
+  if (gameUI) gameUI.style.display = "block";
 
   updatePlays();
 }
 
-
 function draw() {
   requestAnimationFrame(draw);
+
+  if (!analyser || !ctx || !canvas) return;
 
   analyser.getByteFrequencyData(data);
 
@@ -305,11 +310,11 @@ function returnHome() {
   window.location.href = "./index.html";
 }
 
-
 window.onload = () => {
   pickSong();
-  draw();
   updatePlays();
+  draw();
 
-  document.getElementById("playBtn").onclick = playClip;
+  const btn = document.getElementById("playBtn");
+  if (btn) btn.onclick = playClip;
 };
