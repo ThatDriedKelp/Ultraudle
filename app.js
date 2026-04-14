@@ -311,7 +311,7 @@ function returnHome() {
   window.location.href = "./index.html";
 }
 
-window.onload = () => {
+window.addEventListener("DOMContentLoaded", () => {
   canvas = document.getElementById("waveform");
   if (canvas) ctx = canvas.getContext("2d");
 
@@ -319,9 +319,6 @@ window.onload = () => {
   updatePlays();
   draw();
 
-  const btn = document.getElementById("playBtn");
-  if (btn) btn.onclick = playClip;
-
-  const input = document.getElementById("guess");
-  if (input) input.addEventListener("input", e => autofill(e.target.value));
-};
+  document.getElementById("playBtn")?.addEventListener("click", playClip);
+  document.getElementById("guess")?.addEventListener("input", e => autofill(e.target.value));
+});
