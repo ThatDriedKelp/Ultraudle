@@ -428,3 +428,24 @@ input {
   transform: translateX(-20px);
   animation: slideFadeIn 0.3s ease forwards;
 }
+
+@keyframes slowWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(0.2deg); }
+  50% { transform: rotate(-0.2deg); }
+  75% { transform: rotate(0.2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+button:hover,
+.suggestion-item:hover {
+  filter: brightness(1.08);
+  animation: slowWiggle 1.6s ease-in-out infinite;
+}
+
+button:active,
+.suggestion-item:active {
+  filter: brightness(0.6);
+  transform: translate(2px, 2px) scale(0.98);
+  animation: none;
+}
