@@ -47,6 +47,62 @@ body.howtoplay h1 {
   margin-top: 60px;
 }
 
+.result-ui {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+}
+
+.result-panel {
+  width: 720px;
+  padding: 28px;
+  background: rgba(15,15,15,0.95);
+  border: 2px solid white;
+  text-align: center;
+}
+
+.result-panel h1 {
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+
+.result-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  margin: 10px 0 20px 0;
+  color: #ddd;
+}
+
+.result-stats span {
+  color: #777;
+  margin-right: 6px;
+}
+
+.result-history {
+  max-height: 260px;
+  overflow-y: auto;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.result-actions button {
+  width: 220px;
+  font-size: 22px;
+}
+
 body::before {
   content: "";
   position: fixed;
