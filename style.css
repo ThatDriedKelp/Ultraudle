@@ -118,12 +118,6 @@ body::after {
   pointer-events: none;
   z-index: 996;
 
-  background:
-    linear-gradient(to right, rgba(255,0,0,0.04), transparent 30%),
-    linear-gradient(to left, rgba(0,255,255,0.04), transparent 30%);
-
-  mix-blend-mode: screen;
-}
 
 #gameUI,
 .menu,
