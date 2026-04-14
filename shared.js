@@ -60,6 +60,12 @@ function simplify(file) {
   let name = file.split("/").pop().replace(".mp3", "");
   let raw = name.toLowerCase();
 
+  {
+  title: "The Spinal Staircase",
+  file: "./sounds/Heaven Pierce Her - ULTRAKILL- CHAOS-ORDER - 01 The Spinal Staircase.mp3",
+  norm: normalize("The Spinal Staircase")
+  }
+
   if (raw.includes("war without reason")) return "War Without Reason";
   if (raw.includes("the world looks red")) return "The World Looks Red";
   if (raw.includes("sunshine")) return "Sunshine (Mirage)";
@@ -67,7 +73,7 @@ function simplify(file) {
   if (raw.includes("order")) return "ORDER";
   if (raw.includes("pandemonium")) return "PANDEMONIUM";
   if (raw.includes("lakeside songbook")) return "Lakeside Songbook";
-  if (raw.includes("4-s")) return "The Song That Plays In The Level Colloquially Known As 4-S";
+  if (raw.includes("the song that")) return "The Song That Plays In The Level Colloquially Known As 4-S";
 
   return name
     .split(" - ")
