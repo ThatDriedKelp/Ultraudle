@@ -46,42 +46,30 @@ const songs = [
   { file: "sounds/KEYGEN CHURCH - ULTRAKILL- PANDEMONIUM-WAR - 06 Tenebre Rosso Sangue.mp3" }
 ];
 
+const TITLE_FIXES = {
+  "Into the Fire": "Into the Fire",
+  "The Shattering Circle, or- A Charade of Shadeless Ones and Zeroes Rearranged ad Ni": "The Shattering Circle, or- A Charade of Shadeless Ones and Zeroes Rearranged ad Nihilum",
+  "War Without Reason": "War Without Reason"
+};
+
 function normalize(str) {
   return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function simplifyTitle(name) {
-  let n = name;
+  if (TITLE_FIXES[name]) return TITLE_FIXES[name];
 
-  if (n.includes("The Shattering Circle")) {
-    return "The Shattering Circle, or A Charade of Shadeless Ones and Zeroes Rearranged ad Nihilum";
-  }
+  if (name.includes("CHAOS")) return "CHAOS";
+  if (name.includes("ORDER")) return "ORDER";
+  if (name.includes("Sunshine")) return "Sunshine (Mirage)";
+  if (name.includes("Lakeside")) return "Lakeside Songbook";
+  if (name.includes("4-S")) return "4-S Track";
 
-  if (n.includes("Into the Fire")) return "Into the Fire";
-  if (n.includes("War Without Reason")) return "War Without Reason";
-
-  return n
-    .replace(/\d+\s/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function buildDisplayName(file) {
-  const name = file.split("/").pop().replace(".mp3", "");
-  return simplifyTitle(name);
+  return name;
 }
 
 songs.forEach(s => {
-  s.title = buildDisplayName(s.file);
+  const name = s.file.split("/").pop().replace(".mp3", "");
+  s.title = simplifyTitle(name);
   s.norm = normalize(s.title);
 });
-
-function simplifyAutofill(name) {
-  return name
-    .replace(/Heaven Pierce Her - /g, "")
-    .replace(/ULTRAKILL[- ]/g, "")
-    .replace(/Music From /g, "")
-    .replace(/Prelude - /g, "")
-    .replace(/\d+\s/g, "")
-    .trim();
-}
