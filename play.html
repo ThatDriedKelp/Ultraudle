@@ -8,34 +8,42 @@
 
 <body class="standard">
 
-<div id="gameUI">
+<div id="crt">
 
-  <h1>ULTRAUDLE /// STANDARD</h1>
+  <div id="gameUI">
 
-  <div class="frame">
-    <canvas id="waveform"></canvas>
+    <h1>ULTRAUDLE /// STANDARD</h1>
+
+    <div class="frame">
+      <canvas id="waveform"></canvas>
+    </div>
+
+    <div id="playsLeft" class="plays-ui"></div>
+
+    <button id="playBtn" type="button">Play</button>
+
+    <input id="guess" placeholder="Guess"
+      onkeydown="if(event.key==='Enter') checkGuess()">
+
+    <div id="suggestions"></div>
+
+    <div id="history"></div>
+
+    <p id="result"></p>
+
+    <button type="button" onclick="checkGuess()">Guess</button>
+
   </div>
 
-  <div id="playsLeft" class="plays-ui"></div>
+  <div id="flash"></div>
 
-  <button id="playBtn" type="button">Play</button>
+  <div id="resultUI" style="display:none;"></div>
 
-  <input id="guess" placeholder="Guess"
-    onkeydown="if(event.key==='Enter') checkGuess()">
-
-  <div id="suggestions"></div>
-
-  <div id="history"></div>
-
-  <p id="result"></p>
-
-  <button type="button" onclick="checkGuess()">Guess</button>
+  <div id="underConstruction" style="display:none;">
+    UNDER CONSTRUCTION
+  </div>
 
 </div>
-
-<div id="flash"></div>
-
-<div id="resultUI" style="display:none;"></div>
 
 <script src="shared.js"></script>
 <script src="app.js"></script>
