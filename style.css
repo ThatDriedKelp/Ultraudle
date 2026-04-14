@@ -56,6 +56,11 @@ body::before {
   animation: idleShake 2.5s infinite linear;
 }
 
+.suggestion-item {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
 body::after {
   content: "";
   position: fixed;
