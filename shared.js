@@ -53,11 +53,7 @@ const TITLE_FIXES = {
 };
 
 function normalize(str) {
-  return str
-    .toLowerCase()
-    .replace(/[^a-z0-9 ]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function simplifyTitle(name) {
@@ -88,5 +84,4 @@ function cleanTitle(file) {
 songs.forEach(s => {
   s.title = cleanTitle(s.file);
   s.norm = normalize(s.title);
-});
 });
