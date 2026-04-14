@@ -13,6 +13,60 @@
   box-sizing: border-box;
 }
 
+:root {
+  --menu-x: 120px;
+  --menu-y: 30px;
+
+  --game-x: 0px;
+  --game-y: 0px;
+
+  --credits-x: 0px;
+  --credits-y: 0px;
+
+  --howtoplay-x: 0px;
+  --howtoplay-y: 0px;
+
+  --endless-x: 0px;
+  --endless-y: 0px;
+}
+
+.menu {
+  position: fixed;
+  left: var(--menu-x);
+  top: var(--menu-y);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#gameUI {
+  position: fixed;
+  left: calc(50% + var(--game-x));
+  top: calc(50% + var(--game-y));
+  transform: translate(-50%, -50%);
+}
+
+.credits-box {
+  position: fixed;
+  left: calc(50% + var(--credits-x));
+  top: calc(50% + var(--credits-y));
+  transform: translate(-50%, -50%);
+}
+
+.tutorial-box {
+  position: fixed;
+  left: calc(50% + var(--howtoplay-x));
+  top: calc(50% + var(--howtoplay-y));
+  transform: translate(-50%, -50%);
+}
+
+.endless-ui {
+  position: fixed;
+  left: calc(50% + var(--endless-x));
+  top: calc(50% + var(--endless-y));
+  transform: translate(-50%, -50%);
+}
+
 body {
   margin: 0;
   padding: 0;
