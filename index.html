@@ -3,6 +3,45 @@
 <head>
   <title>ULTRAUDLE</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background-image: url("UltrakaudleTerminal.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu {
+      width: 420px;
+      max-width: 90%;
+      background: black;
+      border: 4px solid white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .menu h1 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,7 +53,6 @@
   <button onclick="location.href='settings.html'">SETTINGS</button>
   <button onclick="location.href='howtoplay.html'">HOW TO PLAY</button>
   <button onclick="location.href='credits.html'">CREDITS</button>
-
 </div>
 
 <script src="app.js"></script>
