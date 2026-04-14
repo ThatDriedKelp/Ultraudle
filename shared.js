@@ -53,7 +53,11 @@ const TITLE_FIXES = {
 };
 
 function normalize(str) {
-  return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function simplifyTitle(name) {
@@ -68,8 +72,21 @@ function simplifyTitle(name) {
   return name;
 }
 
+function cleanTitle(file) {
+  return file
+    .split("/").pop()
+    .replace(".mp3", "")
+    .replace(/^Heaven Pierce Her\s*-\s*/i, "")
+    .replace(/^KEYGEN CHURCH\s*-\s*/i, "")
+    .replace(/Music From ULTRAKILL\s*/i, "")
+    .replace(/ULTRAKILL[-\s]*/gi, "")
+    .replace(/\bPrelude\b|\bCHAOS-ORDER\b|\bFRAUD\b|\bVIOLENCE\b|\bPANDEMONIUM-WAR\b/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 songs.forEach(s => {
-  const name = s.file.split("/").pop().replace(".mp3", "");
-  s.title = simplifyTitle(name);
+  s.title = cleanTitle(s.file);
   s.norm = normalize(s.title);
+});
 });
