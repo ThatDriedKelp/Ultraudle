@@ -367,3 +367,20 @@ h2 {
 h3 {
   font-size: 42px;
 }
+
+h1, h2, h3, h4, h5, h6,
+#underConstruction,
+.menu h1,
+.credits-box h1,
+.tutorial-box h1 {
+  font-family: "BroshKill", monospace !important;
+  font-weight: normal !important;
+  color: white !important;
+  font-size: 84px !important;
+}
+
+.menu button {
+  width: 560px;
+  padding: 24px 30px;
+  font-size: 28px;
+}
