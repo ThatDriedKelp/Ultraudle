@@ -24,30 +24,15 @@
   --credits-y: 100px;
 
   --howtoplay-x: 0px;
-  --howtoplay-y: -400px;
+  --howtoplay-y: 0px;
 
   --endless-x: 0px;
   --endless-y: 0px;
 }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(1.2);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-body {
-  animation: zoomIn 0.4s ease;
-}
 
 .howtoplay-title {
-  position: relative;
-  top: 20px;
+  margin-bottom: 10px;
 }
 
 .menu {
@@ -64,6 +49,7 @@ body {
   left: calc(50% + var(--game-x));
   top: calc(50% + var(--game-y));
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .credits-box {
@@ -101,7 +87,7 @@ body {
 }
 
 body.standard {
-  background-image: url("UltraudleTerminalSanctum.jpg");
+  background-image: url("UltraudleTerminalStandard.jpg");
 }
 
 body.credits {
