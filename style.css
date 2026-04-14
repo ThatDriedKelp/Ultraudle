@@ -3,6 +3,20 @@
   src: url("./VCR_OSD_MONO_1.001.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "BroshKill";
+  src: url("./BroshKill-Regular.otf") format("opentype");
+}
+
+h1, h2, h3, h4, h5, h6,
+#underConstruction,
+.credits-box h1,
+.credits-box h2,
+.menu h1,
+.tutorial-box h1 {
+  font-family: "BroshKill", monospace !important;
+}
+
 * {
   font-family: "VCR", monospace;
   box-sizing: border-box;
