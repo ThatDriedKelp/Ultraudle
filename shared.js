@@ -6,7 +6,7 @@ const songs = [
   { file: "sounds/Heaven Pierce Her - Music From ULTRAKILL Prelude - 05 A Thousand Greetings.mp3" },
   { file: "sounds/Heaven Pierce Her - Music From ULTRAKILL Prelude - 06 A Shattered Illusion.mp3" },
   { file: "sounds/Heaven Pierce Her - Music From ULTRAKILL Prelude - 07 Take Care.mp3" },
-  
+
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- CHAOS-ORDER - 01 The Spinal Staircase.mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- CHAOS-ORDER - 02 CHAOS.mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- CHAOS-ORDER - 03 ORDER.mp3" },
@@ -17,7 +17,7 @@ const songs = [
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- ENCORES I - 03 An Absence.mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- ENCORES I - 04 A Part Falling.mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- ENCORES I - 05 After Hours.mp3" },
-  
+
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- FRAUD - 01 In Absentia ΛΟΓΟΣ.mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- FRAUD - 02 Spiral Out (Keep Going).mp3" },
   { file: "sounds/Heaven Pierce Her - ULTRAKILL- FRAUD - 03 Never Odd or Even.mp3" },
@@ -46,13 +46,42 @@ const songs = [
   { file: "sounds/KEYGEN CHURCH - ULTRAKILL- PANDEMONIUM-WAR - 06 Tenebre Rosso Sangue.mp3" }
 ];
 
-
 function normalize(str) {
   return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function simplifyTitle(name) {
+  let n = name;
+
+  if (n.includes("The Shattering Circle")) {
+    return "The Shattering Circle, or A Charade of Shadeless Ones and Zeroes Rearranged ad Nihilum";
+  }
+
+  if (n.includes("Into the Fire")) return "Into the Fire";
+  if (n.includes("War Without Reason")) return "War Without Reason";
+
+  return n
+    .replace(/\d+\s/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildDisplayName(file) {
+  const name = file.split("/").pop().replace(".mp3", "");
+  return simplifyTitle(name);
+}
+
 songs.forEach(s => {
-  const name = s.file.split("/").pop().replace(".mp3", "");
-  s.title = name;
-  s.norm = normalize(name);
+  s.title = buildDisplayName(s.file);
+  s.norm = normalize(s.title);
 });
+
+function simplifyAutofill(name) {
+  return name
+    .replace(/Heaven Pierce Her - /g, "")
+    .replace(/ULTRAKILL[- ]/g, "")
+    .replace(/Music From /g, "")
+    .replace(/Prelude - /g, "")
+    .replace(/\d+\s/g, "")
+    .trim();
+}
