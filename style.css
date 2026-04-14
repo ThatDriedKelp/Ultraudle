@@ -21,10 +21,10 @@
   --game-y: 0px;
 
   --credits-x: 0px;
-  --credits-y: 0px;
+  --credits-y: 100px;
 
   --howtoplay-x: 0px;
-  --howtoplay-y: 0px;
+  --howtoplay-y: -400px;
 
   --endless-x: 0px;
   --endless-y: 0px;
