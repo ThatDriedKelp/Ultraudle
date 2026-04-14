@@ -3,6 +3,9 @@ const GAME_MODE = window.GAME_MODE || "standard";
 let audio = new Audio();
 audio.preload = "auto";
 
+const savedVolume = localStorage.getItem("masterVolume");
+audio.volume = savedVolume !== null ? Number(savedVolume) : 0.5;
+
 let song = null;
 let clipStart = 0;
 
@@ -31,6 +34,8 @@ function initAudio() {
   analyser.fftSize = 256;
 
   dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+  audio.volume = Number(localStorage.getItem("masterVolume") ?? 0.5);
 
   sourceNode = audioCtx.createMediaElementSource(audio);
   sourceNode.connect(analyser);
