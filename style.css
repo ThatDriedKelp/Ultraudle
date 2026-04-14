@@ -15,6 +15,14 @@ h1 {
     -1px -1px 0 rgba(0,0,0,0.2);
 }
 
+body {
+  background-image: url("UltrakaudleTerminal.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  background-attachment: fixed;
+}
+
 h1::after {
   content: "";
   position: absolute;
@@ -104,8 +112,8 @@ body {
 
 .menu-wrapper {
   position: absolute;
-  left: 30%;
-  top: 10%;
+  left: 10%;
+  top: 12%;
   transform: none;
 }
 
