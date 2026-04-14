@@ -228,26 +228,35 @@ function checkGuess() {
 function showCompletedScreen() {
   const gameUI = document.getElementById("gameUI");
   const resultUI = document.getElementById("resultUI");
+  const hist = document.getElementById("history");
 
   if (gameUI) gameUI.style.display = "none";
   if (!resultUI) return;
 
-  resultUI.style.display = "block";
+  resultUI.style.display = "flex";
+  resultUI.className = "result-ui";
 
-  const hist = document.getElementById("history");
+  const historyHTML = hist ? hist.innerHTML : "";
 
   resultUI.innerHTML = `
-    <div style="background: rgba(0,255,0,0.15); padding:20px; text-align:center;">
+    <div class="result-panel">
       <h1>COMPLETED</h1>
-      <p>Attempts: ${attempt}</p>
-      <div id="historyClone"></div>
-      <button onclick="nextRound()">Next Puzzle</button>
-      <button onclick="returnHome()">RETURN HOME</button>
+
+      <div class="result-stats">
+        <div><span>Attempts</span> ${attempt}</div>
+        <div><span>Plays</span> ${playCount}</div>
+      </div>
+
+      <div class="result-history">
+        ${historyHTML}
+      </div>
+
+      <div class="result-actions">
+        <button onclick="nextRound()">NEXT</button>
+        <button onclick="returnHome()">HOME</button>
+      </div>
     </div>
   `;
-
-  const clone = document.getElementById("historyClone");
-  if (clone && hist) clone.innerHTML = hist.innerHTML;
 }
 
 function nextRound() {
