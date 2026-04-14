@@ -8,6 +8,26 @@
   src: url("./BroshKill-Regular.otf") format("opentype");
 }
 
+h1 {
+  position: relative;
+  text-shadow:
+    1px 1px 0 rgba(255,255,255,0.05),
+    -1px -1px 0 rgba(0,0,0,0.2);
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: repeating-conic-gradient(
+    rgba(255,255,255,0.02) 0% 25%,
+    rgba(0,0,0,0.02) 25% 50%
+  );
+  mix-blend-mode: overlay;
+}
+
 h1, h2, h3, h4, h5, h6,
 #underConstruction,
 .credits-box h1,
