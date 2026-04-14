@@ -75,7 +75,7 @@ h1 {
 
 button {
   display: block;
-  margin: 22px auto;
+  margin: 10px auto;
   width: 600px;
   padding: 28px 34px;
   font-size: 32px;
@@ -108,13 +108,6 @@ body {
   margin: 0;
   background: black;
   overflow: hidden;
-}
-
-.menu-wrapper {
-  position: absolute;
-  left: 10%;
-  top: 12%;
-  transform: none;
 }
 
 .menu {
@@ -243,12 +236,12 @@ input {
   letter-spacing: 2px;
   text-transform: uppercase;
   z-index: 99999;
+  
 }
-
 .menu-wrapper {
-  position: absolute;
-  left: 80px;
-  top: 80px;
+  position: fixed;
+  left: 140px;
+  top: 30px;
 }
 
 .tutorial-box {
