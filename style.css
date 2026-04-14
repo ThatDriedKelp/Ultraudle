@@ -43,6 +43,10 @@
   100% { transform: translate(0px, 0px); }
 }
 
+body.howtoplay h1 {
+  margin-top: 60px;
+}
+
 body::before {
   content: "";
   position: fixed;
