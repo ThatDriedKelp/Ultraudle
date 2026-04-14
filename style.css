@@ -35,9 +35,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 72px;
+  font-size: 105px;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .menu {
@@ -84,8 +84,8 @@ body {
 
 .menu-wrapper {
   position: absolute;
-  left: 10%;
-  top: 15%;
+  left: 30%;
+  top: 10%;
   transform: none;
 }
 
