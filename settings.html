@@ -1,18 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" href="UltrakidleIcon.png">
-<div id="underConstruction">
-  UNDER CONSTRUCTION
-</div>
-  <title>SETTINGS</title>
+  <link rel="icon" type="image/png" href="UltrakidleIcon.png">
+  <title>ULTRAUDLE /// SETTINGS</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-<h1>SETTINGS</h1>
-<p>UNDER CONSTRUCTION</p>
+<body class="settings">
 
+<div id="crt">
+
+  <div class="menu-wrapper">
+
+    <div class="settings-box ui" id="settingsUI">
+
+      <h1>SETTINGS</h1>
+
+      <div class="setting">
+        <label>High Contrast</label>
+        <input type="checkbox" onchange="toggleClass('high-contrast', this.checked)">
+      </div>
+
+      <div class="setting">
+        <label>CRT Effect</label>
+        <input type="checkbox" onchange="toggleClass('crt-on', this.checked)">
+      </div>
+
+      <div class="setting">
+        <label>Reduce Motion</label>
+        <input type="checkbox" onchange="toggleClass('reduced-motion', this.checked)">
+      </div>
+
+      <div class="setting">
+        <label>Screen Shake</label>
+        <input type="range" min="0" max="100" value="10" oninput="setShake(this.value)">
+      </div>
+
+      <div class="setting">
+        <label>Chromatic Aberration</label>
+        <input type="range" min="0" max="100" value="10" oninput="setChromatic(this.value)">
+      </div>
+
+      <div class="setting">
+        <label>Background Blur</label>
+        <input type="range" min="0" max="20" value="0" oninput="setBlur(this.value)">
+      </div>
+
+      <div class="setting">
+        <label>Autocomplete Limit</label>
+        <input type="range" min="1" max="10" value="4" oninput="setAutoLimit(this.value)">
+      </div>
+
+      <div class="setting">
+        <label>UI Scale</label>
+        <input type="range" min="80" max="140" value="100" oninput="setScale(this.value)">
+      </div>
+
+      <div class="setting">
+        <label>Mute</label>
+        <input type="checkbox" onchange="toggleClass('muted', this.checked)">
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="shared.js"></script>
 <script src="app.js"></script>
 
 </body>
