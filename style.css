@@ -23,6 +23,31 @@ body {
   background-attachment: fixed;
 }
 
+body {
+  background-image: url("UltraudleTerminalSanctum.jpg");
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+body.credits {
+  background-image: url("UltraudleTermialSecret.png");
+}
+
+body.endless {
+  background-image: url("UltrakaudleEndlessTerminal.png");
+}
+
+body.howtoplay,
+body.settings {
+  background-image: url("UltraudleTerminalSanctum.jpg");
+}
+
+body.secret {
+  background-image: url("UltraudleTermialSecret.png");
+}
+
 h1::after {
   content: "";
   position: absolute;
