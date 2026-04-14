@@ -173,6 +173,7 @@ async function playClip() {
 
 function checkGuess() {
   if (gameOver) return;
+  if (GAME_MODE === "standard" && attempt >= 6) return;
 
   const input = document.getElementById("guess");
   const result = document.getElementById("result");
