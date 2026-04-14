@@ -30,6 +30,11 @@
   --endless-y: 0px;
 }
 
+.howtoplay-title {
+  position: relative;
+  top: 20px;
+}
+
 .menu {
   position: fixed;
   left: var(--menu-x);
