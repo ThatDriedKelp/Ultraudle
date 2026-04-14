@@ -48,51 +48,11 @@ const songs = [
 
 
 function normalize(str) {
-  return str
-    .toLowerCase()
-    .replace(/[^a-z0-9 ]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-
-function simplify(file) {
-  let name = file.split("/").pop().replace(".mp3", "");
-  let raw = name.toLowerCase();
-
-  {
-  title: "The Spinal Staircase",
-  file: "./sounds/Heaven Pierce Her - ULTRAKILL- CHAOS-ORDER - 01 The Spinal Staircase.mp3",
-  norm: normalize("The Spinal Staircase")
-  }
-
-  if (raw.includes("war without reason")) return "War Without Reason";
-  if (raw.includes("the world looks red")) return "The World Looks Red";
-  if (raw.includes("sunshine")) return "Sunshine (Mirage)";
-  if (raw.includes("chaos")) return "CHAOS";
-  if (raw.includes("order")) return "ORDER";
-  if (raw.includes("pandemonium")) return "PANDEMONIUM";
-  if (raw.includes("lakeside songbook")) return "Lakeside Songbook";
-  if (raw.includes("the song that")) return "The Song That Plays In The Level Colloquially Known As 4-S";
-
-  return name
-    .split(" - ")
-    .pop()
-    .replace(/\d+/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 songs.forEach(s => {
-  s.title = simplify(s.file);
-  s.norm = normalize(s.title);
+  const name = s.file.split("/").pop().replace(".mp3", "");
+  s.title = name;
+  s.norm = normalize(name);
 });
-
-
-function titleCase(str) {
-  return str
-    .split(" ")
-    .filter(Boolean)
-    .map(w => w[0].toUpperCase() + w.slice(1))
-    .join(" ");
-}
