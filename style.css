@@ -350,3 +350,20 @@ button:hover, .suggestion-item:hover {
   75% { transform: translate(4px, 2px); }
   100% { transform: translate(0,0); }
 }
+
+h1, h2, h3, h4, h5, h6,
+#underConstruction,
+.menu h1,
+.credits-box h1,
+.tutorial-box h1 {
+  font-weight: normal !important;
+  font-size: 88px;
+}
+
+h2 {
+  font-size: 56px;
+}
+
+h3 {
+  font-size: 42px;
+}
