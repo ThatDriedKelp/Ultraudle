@@ -86,22 +86,41 @@ function normalizeLocal(v) {
 
 function autofill(v) {
   const box = document.getElementById("suggestions");
-  if (!box) return;
+  const input = document.getElementById("guess");
 
+  if (!box || !input) return;
+
+  const query = normalizeLocal(v);
   box.innerHTML = "";
 
-  v = normalizeLocal(v);
-  if (!v) return;
+  if (!query) return;
 
   const seen = new Set();
 
-  songs
-    .filter(s => s.norm.includes(v))
+  const matches = songs
+    .filter(s => s?.norm && s.norm.includes(query))
     .filter(s => {
       if (seen.has(s.norm)) return false;
       seen.add(s.norm);
       return true;
     })
+    .slice(0, 6);
+
+  if (matches.length === 0) return;
+
+  for (const s of matches) {
+    const item = document.createElement("div");
+    item.className = "suggestion-item";
+    item.textContent = s.title;
+
+    item.addEventListener("click", () => {
+      input.value = s.title;
+      box.innerHTML = "";
+    });
+
+    box.appendChild(item);
+  }
+}
     .slice(0, 6)
     .forEach(s => {
       const d = document.createElement("div");
@@ -319,6 +338,12 @@ window.addEventListener("DOMContentLoaded", () => {
   updatePlays();
   draw();
 
-  document.getElementById("playBtn")?.addEventListener("click", playClip);
+const btn = document.getElementById("playBtn");
+if (btn) {
+  btn.addEventListener("click", async () => {
+    await ensureAudio();
+    await playClip();
+  });
+}
   document.getElementById("guess")?.addEventListener("input", e => autofill(e.target.value));
 });
