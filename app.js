@@ -208,10 +208,10 @@ function checkGuess() {
   const match = songs.find(s => s.norm === g);
 
   if (!match) {
-    result.textContent = "INVALID";
-    flash("red");
-    input.value = "";
-    return;
+  result.textContent = "NOT FOUND";
+  flash("red");
+  input.value = "";
+  return;
   }
 
   if (used.has(match.norm)) {
@@ -225,13 +225,15 @@ function checkGuess() {
   attempt++;
 
   if (g !== song.norm) {
-    addHistory(match.title, "wrong");
-    flash("red");
+  result.textContent = "WRONG";
 
-    playCount = 0;
-    updatePlays();
-    input.value = "";
-    return;
+  addHistory(match.title, "wrong");
+  flash("red");
+
+  playCount = 0;
+  updatePlays();
+  input.value = "";
+  return;
   }
 
   flash("green");
